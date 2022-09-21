@@ -1,0 +1,3 @@
+$('#idModal').on('shown.bs.modal', function() {
+    $("#idInputan").focus();
+})
