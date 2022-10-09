@@ -1,0 +1,4 @@
+Call to a member function count() on null
+if (optional($komentar)->count() > 0) {
+	//statement
+}
