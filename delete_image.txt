@@ -1,0 +1,20 @@
+//contoh penggunaan delete image
+public function destroy($id, Request $request)
+    {
+	//tangkap postingan sesuai id yang dikirim
+        $postingan = Postingan::find($id);
+	//cek apakah postingan itu memiliki image?
+        if (
+            $postingan->image != null ||
+            $postingan->image != ''
+        ) {
+	//lakukan penghapusan image dalam penyimpanan terlebih dahulu
+            Storage::delete($postingan->image);
+        }
+	//terus hapus postingan dari database
+        $postingan->delete();
+	//ini untuk mengirim pemberitahuan
+        $request->session()->flash('delete', 'Postingan berhasil dihapus');
+	//kembali ke halaman yang diinginkan
+        return redirect('/');
+    }
