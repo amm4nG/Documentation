@@ -1,0 +1,16 @@
+Dalam kasus ini saya menggunakan mailtrap.io
+1. konfigurasi .env
+	MAIL_MAILER=smtp
+	MAIL_HOST=smtp.mailtrap.io
+	MAIL_PORT=2525
+	MAIL_USERNAME=75b2fa33f3ebbc
+	MAIL_PASSWORD=9e8898c6ebad6c
+	MAIL_ENCRYPTION=tls
+	MAIL_FROM_ADDRESS="hello@example.com"
+	MAIL_FROM_NAME="${APP_NAME}"
+2. Kemudian jalankan perintah php artisan config:cache untuk menyimpan konfigurasi
+3. Buka file model app/Models/User.php dan tambahkan implementasi MustVerifyEmail
+4. Kemudian buka file routes/web.php dan tambahkan kode di bawah ini
+	Auth::routes(['verify' => true]);
+5. supaya user tidak bisa masuk sebelum verifikasi emailnya kita tambahkan pada bagian HomeController
+   pada method constructor => $this->middleware(['auth','verified']);
