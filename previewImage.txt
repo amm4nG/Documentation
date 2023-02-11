@@ -1,0 +1,20 @@
+<input type="file" onchange="previewImage()" name="nama-image" class="form-control" id="nama-image">
+<img id="preview" style="display:none;" class="img-fluid mt-3">
+<script>
+   function previewImage() {
+        var preview = document.getElementById("preview");
+        var file = document.getElementById("nama-image").files[0];
+
+        var reader = new FileReader();
+        reader.onloadend = function() { 
+            preview.src = reader.result;
+            preview.style.display = "block";
+        }
+
+        if (file) {
+            reader.readAsDataURL(file);
+        } else {
+            preview.src = "";
+        }
+   }
+</script>
