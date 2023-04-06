@@ -1,0 +1,41 @@
+SET GLOBAL log_bin_trust_function_creators = 1;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CREATE TRIGGER update_nilai
+AFTER UPDATE on nilai
+FOR EACH ROW
+INSERT INTO log_nilai (mahasiswa_id, waktu, nilai_rata_rata)
+SELECT old.mahasiswa_id, now(), avg(nilai) 
+FROM nilai where mahasiswa_id = old.mahasiswa_id
+
+CREATE TRIGGER tambah_nilai
+AFTER INSERT on nilai
+FOR EACH ROW
+// tambah nilai
+INSERT INTO log_nilai (mahasiswa_id, waktu, nilai_rata_rata, ket) VALUES 
+(new.mahasiswa_id, now(), new.nilai, 'tambah nilai')
+// update nilai
+INSERT INTO log_nilai (mahasiswa_id, waktu, nilai_rata_rata, ket)
+SELECT old.mahasiswa_id, now(), avg(nilai), 'update nilai' FROM nilai where mahasiswa_id = old.mahasiswa_id
+// delete nilai
+INSERT INTO log_nilai (mahasiswa_id, waktu, nilai_rata_rata, ket)
+SELECT old.mahasiswa_id, now(), avg(nilai), 'hapus nilai'
+
+CREATE PROCEDURE hapus_mahasiswa(tahun YEAR) 
+DELETE FROM mahasiswa WHERE tahun_masuk < tahun
+
+CREATE VIEW avg_nilai AS SELECT AVG(nilai.nilai) AS nilai_rata_rata FROM nilai JOIN 
+mahasiswa ON nilai.mahasiswa_id = mahasiswa.mahasiswa_id GROUP BY tahun_masuk
