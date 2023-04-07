@@ -1,0 +1,18 @@
+    public function validasi(Request $request)
+    {
+        // valisai inputan
+        $request->validate([
+            'username' => ['required', 'min:8'],
+            'password' => ['required', 'min:8']
+        ]);  
+        // ambil request username dan password dan tampung kedalam variable credentials
+        $credentials = $request->only('username', 'password');
+        // cocokkan datanya menggunakan Auth::attempt
+        if (Auth::attempt($credentials)) { 
+            return redirect()->intended('home');
+        } else { 
+            return back()->withErrors([
+            'username' => 'Username invalid'
+            ]);
+        }
+    }
