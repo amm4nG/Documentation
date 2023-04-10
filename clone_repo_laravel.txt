@@ -1,0 +1,10 @@
+1. git clone url_repo
+2. composer install
+3. cp .env.example .env
+4. php artisan key:generate
+
+sebelum ngoding pastikan membuat branch terlebih dahulu 
+1. git branch nama_branch
+2. git checkout nama_branch
+
+melakukan perubahan dimulai dengan perintah git add .
