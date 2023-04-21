@@ -1,0 +1,6 @@
+                                @php
+                                $date = \Carbon\Carbon::parse('masukkan type data datetime');
+                                $day = $date->format('d'); // mengambil tanggal
+                                $month = $date->format('m'); // mengambil bulan
+                                $year = $date->format('Y'); // mengambil tahun
+                                @endphp 
