@@ -1,0 +1,15 @@
+                    @foreach ($qr_code_presensi as $qr_code)
+                    <tbody>
+                        <tr>
+                            <td class="align-middle">{{ $loop->iteration }}</td> 
+                            <td><a data-id="{{ $qr_code->id }}" class="btn btn-primary btn-sm view"><i class="bi bi-eye"></i></a></td>
+                        </tr>
+                    </tbody>
+                    @endforeach
+                    
+             // ketika button class view ditekan     
+             $('.view').on('click', function(){
+                // ambil id nya
+                var id = $(this).data('id');
+                console.log(id);
+             })
