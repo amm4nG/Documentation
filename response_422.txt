@@ -1,0 +1,29 @@
+// buat new formData untuk mengambil sebuah gambar dengan ajax
+let formData = new FormData()
+formData.append('nama_wisata', $("#nama_wisata").val()) //tambahkan field nama_wisata kedalam formData 
+$.ajax({
+    url: "{{ route('pendaftaran.store') }}",
+    method: 'post',
+    data: formData,
+    contentType: false,
+    processData: false,
+    success: function(response) {
+      console.log(response)
+    },
+    error: function(response) {
+      // response 422 itu tidak memenuhi persayaratan atau gagal melewati validasi
+      if (response.status == 422) {
+         console.log(response.responseJSON.message); // kembalikan pesan gagal validasinya
+      }
+    }
+})
+
+
+$request->validate(
+[
+   'nama_wisata' => ['required'], //nama_wisata yang dikirm itu tidak boleh kosong
+],
+[
+   'nama_wisata.required' => 'nama wisata tidak boleh kosong' // ubah pesan errornya menjadi bahasa indonesia
+],
+);
