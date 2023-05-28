@@ -10,3 +10,8 @@ function showPosition(position) {
   console.log("Latitude: " + latitude);
   console.log("Longitude: " + longitude);
 }
+
+
+// link google maps dari titik koordinat
+var googleMapsLink = 'https://www.google.com/maps?q=' + latitude + ',' + longitude;
+// console.log('Link Google Maps: ' + googleMapsLink);
