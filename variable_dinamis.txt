@@ -1,0 +1,6 @@
+$angka = [10, 20, 30];
+
+for ($i = 0; $i < count($angka); $i++) {
+   ${'variabel' . $i} = $angka[$i];
+      echo ${'variabel'.$i};
+}
