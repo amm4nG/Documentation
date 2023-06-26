@@ -1,0 +1,31 @@
+public function update(Request $request, $id)
+{
+    $validator = Validator::make($request->all(), [
+        'name' => 'required',
+        'email' => 'required|email|unique:users,email,'.$id,
+        'password' => 'required|min:8',
+    ]);
+
+    if ($validator->fails()) {
+        return response()->json([
+            'error' => 'Validation failed',
+            'message' => $validator->errors(),
+        ]);
+    }
+
+    $user = User::find($id);
+    $user->name = $request->name;
+    
+    // Periksa apakah email diubah sebelum memperbarui
+    if ($user->email !== $request->email) {
+        $user->email = $request->email;
+    }
+    
+    $user->password = Hash::make($request->password);
+
+    $user->save();
+
+    return response()->json([
+        'success' => 'Updated successfully',
+    ]);
+}
