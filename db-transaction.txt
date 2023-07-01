@@ -1,0 +1,22 @@
+use Illuminate\Support\Facades\DB;
+
+DB::beginTransaction();
+
+try {
+    // Lakukan operasi database di dalam transaksi
+    DB::table('users')->update(['active' => false]);
+
+    DB::table('orders')->delete();
+
+    // Commit transaksi jika semua operasi berhasil
+    DB::commit();
+
+    // Tambahkan kode lainnya setelah transaksi berhasil
+    echo "Transaksi berhasil.";
+} catch (\Exception $e) {
+    // Rollback transaksi jika terjadi kesalahan
+    DB::rollback();
+
+    // Tampilkan pesan kesalahan atau lakukan tindakan lainnya
+    echo "Transaksi gagal: " . $e->getMessage();
+}
