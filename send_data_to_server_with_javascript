@@ -1,0 +1,40 @@
+document.getElementById('myForm').addEventListener('submit', function (event) {
+  // Menghentikan perilaku bawaan formulir untuk mencegah pengalihan halaman
+  event.preventDefault();
+
+  // Mengumpulkan data dari formulir
+  const formData = {
+    name: document.getElementById('name').value,
+    age: document.getElementById('age').value,
+    city: document.getElementById('city').value
+  };
+
+  // URL endpoint server
+  const apiUrl = 'http://example.com/api/data';
+
+  // Konfigurasi permintaan fetch
+  const requestOptions = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(formData)
+  };
+
+  // Mengirim permintaan fetch ke server
+  fetch(apiUrl, requestOptions)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log('Data berhasil dikirim:', data);
+      // Lakukan tindakan lain setelah data berhasil dikirim
+    })
+    .catch(error => {
+      console.error('Ada kesalahan:', error);
+      // Handle error, jika ada
+    });
+});
