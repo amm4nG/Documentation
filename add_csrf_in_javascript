@@ -1,20 +1,28 @@
-<meta name="csrf-token" content="{{ csrf_token() }}">
+    <script>
+        let updateData = (id) => {
+            let csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+            let formData = new FormData();
+            formData.append('name', 'Arman');
 
-const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
-
-const formData = new FormData();
-formData.append('_token', csrfToken); // Sesuaikan nama token CSRF yang digunakan oleh Laravel
-
-// Tambahkan data FormData lainnya ke sini
-
-fetch('/url-endpoint', {
-    method: 'POST',
-    body: formData,
-    // Sesuaikan dengan konfigurasi tambahan yang diperlukan (headers, dsb.)
-})
-.then(response => {
-    // Handle responsenya di sini
-})
-.catch(error => {
-    // Handle error di sini
-});
+            fetch('/users/' + id, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrfToken,
+                    },
+                    body: formData,
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log(data);
+                })
+                .catch(error => {
+                    console.error('Ada kesalahan:', error.message);
+                });
+        }
+    </script>
