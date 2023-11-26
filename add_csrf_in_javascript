@@ -1,0 +1,20 @@
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
+const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+
+const formData = new FormData();
+formData.append('_token', csrfToken); // Sesuaikan nama token CSRF yang digunakan oleh Laravel
+
+// Tambahkan data FormData lainnya ke sini
+
+fetch('/url-endpoint', {
+    method: 'POST',
+    body: formData,
+    // Sesuaikan dengan konfigurasi tambahan yang diperlukan (headers, dsb.)
+})
+.then(response => {
+    // Handle responsenya di sini
+})
+.catch(error => {
+    // Handle error di sini
+});
