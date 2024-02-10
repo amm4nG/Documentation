@@ -21,20 +21,24 @@
                             <tr>
                                 <th class="text-center">No</th>
                                 <th class="text-center">Name</th>
+                                <th class="text-center">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>1</td>
                                 <td>Andi</td>
+                                <td><a href="" class="btn btn-sm btn-primary">Eidt</a></td>
                             </tr>
                             <tr>
                                 <td>2</td>
                                 <td>Asrul</td>
+                                <td><a href="" class="btn btn-sm btn-primary">Eidt</a></td>
                             </tr>
                             <tr>
                                 <td>3</td>
                                 <td>Prabowo</td>
+                                <td><a href="" class="btn btn-sm btn-primary">Eidt</a></td>
                             </tr>
                         </tbody>
                     </table>
@@ -77,9 +81,11 @@
 
                     // Add new rows based on the fetched data
                     let no = 0;
+                    let btn = ""
                     data.forEach(item => {
                         no++;
-                        table.row.add([no, item]);
+                        btn = `<a href="#" onclick="editLah('${item}')" class="btn btn-sm btn-primary">Eidt</a>`
+                        table.row.add([no, item, btn]);
                     });
 
                     // Draw the table to reflect changes
@@ -88,6 +94,10 @@
                 .catch(error => {
                     console.error('Ada kesalahan:', error.message);
                 });
+        }
+
+        function editLah(item) {
+            console.log(item);
         }
     </script>
 </body>
