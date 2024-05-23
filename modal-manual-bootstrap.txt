@@ -1,0 +1,2 @@
+var modalInstance = new bootstrap.Modal(modal);
+modalInstance.show();
